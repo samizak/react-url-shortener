@@ -1,0 +1,9 @@
+/node_modules
+
+/requests
+
+/backend/dist
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
