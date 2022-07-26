@@ -1,12 +1,15 @@
-import { useState } from "react";
-import RecentHistoryTable from "../Components/RecentHistoryTable";
-import RecentHistory from "../Types/RecentHistory";
+import { useEffect, useState } from "react";
+import ErrorMessage from "../Components/ErrorMessage/ErrorMessage";
+import RecentHistory from "../Components/RecentHistory.tsx/RecentHistory";
+import RecentHistoryType from "../Types/RecentHistoryType";
 
 export default function Main() {
   const [url, setUrl] = useState("");
-  const [recentHistory, setRecentHistory] = useState<RecentHistory[]>([]);
-
+  const [recentHistory, setRecentHistory] = useState<RecentHistoryType[]>([]);
   const [isError, setIsError] = useState(false);
+
+  // Hide error message when error is shown but user is typing again
+  useEffect(() => setIsError(false), [url]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -29,7 +32,7 @@ export default function Main() {
       .then((response) => response.json())
       .then((response) => {
         setIsError(false);
-        const _recentHistory: RecentHistory = {
+        const _recentHistory: RecentHistoryType = {
           date: new Date(response.date).toISOString().split("T")[0],
           longURL: url,
           shortURL: response.shortUrl,
@@ -41,7 +44,7 @@ export default function Main() {
           (c) => c.shortURL === _recentHistory.shortURL
         );
 
-        let newArr: RecentHistory[] = [];
+        let newArr: RecentHistoryType[] = [];
         if (!alreadyExits) {
           newArr = [...recentHistory, _recentHistory];
         } else {
@@ -58,36 +61,31 @@ export default function Main() {
   };
 
   return (
-    <div className="mt-5">
+    <div className="container">
       <h1>Short URL Generator</h1>
       <div>A cool little URL shortener!</div>
+      <br></br>
+      <br></br>
 
-      <form className="row justify-content-center mt-5" onSubmit={handleSubmit}>
-        <div className="col-md-3 col-auto">
+      <form onSubmit={handleSubmit}>
+        <div className="form-inline">
           <input
+            className={"col-12 form-control" + (isError ? " is-invalid" : "")}
             id="url-input"
             type="text"
-            className={"form-control " + (isError ? "is-invalid" : "")}
-            required
-            placeholder="Place URL here"
+            name="url"
+            placeholder="http(s)://my.url/to/be/shortened"
             onChange={(e) => setUrl(e.target.value.trim())}
           />
-          <div className="invalid-feedback">Invalid URL</div>
-        </div>
-
-        <div className="col-auto">
-          <button
-            id="shrink-btn"
-            type="submit"
-            className="btn btn-outline-primary"
-          >
-            Shrink
+          <button className="col-12 btn btn-primary" type="submit">
+            Shorten URL
           </button>
         </div>
       </form>
 
-      <h3 className="mt-5">Recent History</h3>
-      <RecentHistoryTable recentHistory={recentHistory} />
+      <ErrorMessage isError={isError} />
+
+      <RecentHistory recentHistory={recentHistory} />
     </div>
   );
 }

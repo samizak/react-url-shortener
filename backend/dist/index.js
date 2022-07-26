@@ -20,8 +20,10 @@ app.use("/", index_1.default);
 app.use("/api/test", TestAPI_1.default);
 app.use("/api/url", url_1.default);
 app.use("/api/data", GetUrlData_1.default);
-app.use(express_1.default.static(path_1.default.resolve(__dirname, "../../frontend/build")));
-app.get("*", (req, res) => {
-    res.sendFile(path_1.default.resolve(__dirname, "../../frontend/build", "index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+    app.use(express_1.default.static(path_1.default.resolve(__dirname, "../../frontend/build")));
+    app.get("*", (req, res) => {
+        res.sendFile(path_1.default.resolve(__dirname, "../../frontend/build", "index.html"));
+    });
+}
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));

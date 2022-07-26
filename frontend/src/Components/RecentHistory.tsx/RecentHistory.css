@@ -1,0 +1,88 @@
+.recent_history {
+  border-style: solid;
+  border-radius: 20px;
+  border-color: #a0a1a2;
+}
+
+.recent_history h5 {
+  background: #edf2fe;
+  padding: 20px;
+  position: relative;
+  left: -15px;
+}
+
+.recent_history li {
+  padding: 16px 20px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  display: flex;
+}
+
+.recent_history li span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* 
+  Limit long url length
+ */
+.long-link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+a {
+  color: #1779ba;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-light,
+.button-secondary {
+  background: #edf2fe;
+  color: #2a5bd7;
+}
+
+.recent_history li span .short-link {
+  padding-right: 25px;
+}
+
+/* 
+ Add Separators to list elements
+ */
+.url-result:not(:first-child):not(:last-child) {
+  border-bottom: 1px solid rgb(202, 202, 202);
+}
+
+@media (max-width: 800px) {
+  .recent_history li.url-result,
+  .recent_history li.url-result span {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .short-link-container,
+  .long-link {
+    width: 100%;
+    text-align: left;
+  }
+
+  .long-link {
+    margin-bottom: 20px;
+  }
+
+  .short-link {
+    margin-bottom: 3px;
+  }
+
+  .long-link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    text-align: left;
+  }
+}
