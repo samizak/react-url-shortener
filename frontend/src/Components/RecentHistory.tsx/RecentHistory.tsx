@@ -14,6 +14,7 @@ export default function RecentHistory(props: {
             <a
               href={short_url}
               target="_blank"
+              rel="noreferrer"
               title="Shortened URL for http://twitter.com/"
             >
               {short_url}
