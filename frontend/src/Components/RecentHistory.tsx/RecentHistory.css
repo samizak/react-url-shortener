@@ -40,12 +40,6 @@ a {
   cursor: pointer;
 }
 
-.button-light,
-.button-secondary {
-  background: #edf2fe;
-  color: #2a5bd7;
-}
-
 .recent_history li span .short-link {
   padding-right: 25px;
 }

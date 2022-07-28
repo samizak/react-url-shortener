@@ -1,6 +1,7 @@
 import "./RecentHistory.css";
 import RecentHistoryType from "../../Types/RecentHistoryType";
 import { Fragment } from "react";
+import CopyButton from "./CopyButton";
 
 export default function RecentHistory(props: {
   recentHistory: RecentHistoryType[];
@@ -15,13 +16,13 @@ export default function RecentHistory(props: {
               href={short_url}
               target="_blank"
               rel="noreferrer"
-              title="Shortened URL for http://twitter.com/"
+              title={"Shortened URL for " + long_url}
             >
               {short_url}
             </a>
           </span>
 
-          <button className="btn btn-outline-primary">Copy</button>
+          <CopyButton />
         </span>
       </li>
     );
@@ -30,10 +31,14 @@ export default function RecentHistory(props: {
     <>
       {props.recentHistory.length > 0 && (
         <ul className="recent_history">
-          {GetRecentLink(
-            "https://www.google.co.uk/search?q=cool+cats&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=2ahUKEwihi7eYj5f5AhWJRsAKHUnLBaQQ_AUoAXoECAIQAw&amp;biw=2560&amp;bih=1293&amp;dpr=1#imgrc=6MOXW3PKfvpzqM",
-            "https://bit.ly/3OvxYZu"
-          )}
+          {
+            <Fragment key={"first-element-url"}>
+              {GetRecentLink(
+                props.recentHistory[0].longURL,
+                props.recentHistory[0].shortURL
+              )}
+            </Fragment>
+          }
 
           {props.recentHistory.length > 1 && (
             <>

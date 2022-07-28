@@ -37,9 +37,12 @@ router.post("/shorten", async (req, res) => {
   }
 
   // if HTTP/HTTPS not added by default, add it!
-  if (!longUrl.startsWith("http://")) {
-    longUrl = "http://" + longUrl;
-  }
+  // if (
+  //   longUrl.includes(".") &&
+  //   (!longUrl.startsWith("http://") || !longUrl.startsWith("https://"))
+  // ) {
+  //   longUrl = "http://" + longUrl;
+  // }
 
   if (!isValidHttpUrl(longUrl)) {
     return res.status(401).json("Invalid long URL");
